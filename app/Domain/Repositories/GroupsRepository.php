@@ -20,7 +20,7 @@ class GroupsRepository extends Repository
      */
     public function getAll(): Collection
     {
-        return $this->model()
+        return $this->group()
             ->query()
             ->withCount(['students'])
             ->get()
@@ -32,7 +32,7 @@ class GroupsRepository extends Repository
      */
     public function getWithLessOrEqualStudents(int $maxStudents): Collection
     {
-        $result = $this->model()
+        $result = $this->group()
             ->query()
             ->withCount(['students'])
             ->has('students', '<=', $maxStudents)
@@ -42,7 +42,7 @@ class GroupsRepository extends Repository
         return $result;
     }
 
-    protected function model(): Group
+    protected function group(): Group
     {
         /** @var Group */
         return parent::model();
