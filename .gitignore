@@ -9,6 +9,9 @@
 /public/storage
 /storage/*.key
 /vendor
+/app/**/Exxample*.php
+/database/**/Exxample*.php
+/tests/**/Exxample*.php
 .env
 .env.testing
 .env.backup
