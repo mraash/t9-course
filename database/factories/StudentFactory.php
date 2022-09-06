@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Models\Student;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Models\Student>
  */
 class StudentFactory extends Factory
 {
+    protected $model = Student::class;
+
     private $isNamesFilled = false;
 
     private array $firstNames = [];

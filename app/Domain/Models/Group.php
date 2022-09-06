@@ -5,6 +5,7 @@ namespace App\Domain\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Database\Factories\GroupFactory;
 use App\Magic\Model;
 
 /**
@@ -29,5 +30,10 @@ class Group extends Model
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
+    }
+
+    protected static function newFactory()
+    {
+        return GroupFactory::new();
     }
 }
