@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\GroupsController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/students');
 
 
-Route::get('/groups', function () {
-    return view('pages.groups.find-group');
-})->name('groups.index');
+Route::get('/groups', [GroupsController::class, 'index'])->name('groups.index');
 
 Route::get('/students', function () {
     return view('pages.students.archive-students');

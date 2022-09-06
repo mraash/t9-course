@@ -13,5 +13,6 @@
 
     <rule ref="PSR12">
         <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
     </rule>
 </ruleset>

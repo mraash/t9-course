@@ -4,22 +4,31 @@
 @section ('tableTitle', 'Groups')
 
 @section ('content')
-    <div class="form-group">
-        <label class="form-check-label" for="equal-or-less-input">
-            Equal or less
-        </label>
-        <input
-            class="form-control"
-            id="equal-or-less-input"
-            placeholder=""
-            style="width: 120px"
-        >
-        <div class="mt-2">
-            <button type="button" class="btn btn-success">
-                Apply
-            </button>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
         </div>
-    </div>
+    @endif
+
+    <form >
+        <div class="form-group">
+            <label class="form-check-label" for="equal-or-less-input">
+                Equal or less
+            </label>
+            <input
+                name="max-students"
+                class="form-control"
+                id="equal-or-less-input"
+                value="{{ request()->input('max-students') }}"
+                style="width: 120px"
+            >
+            <div class="mt-2">
+                <button type="submit" class="btn btn-success">
+                    Apply
+                </button>
+            </div>
+        </div>
+    </form>
 
     <div class="card mt-4">
         <div class="card-body p-0">
@@ -28,21 +37,17 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Students</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>name</td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>name</td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>name</td>
-                    </tr>
+                    @foreach ($groups as $group)
+                        <tr>
+                            <td>{{ $group->id }}</td>
+                            <td>{{ $group->name }}</td>
+                            <td>{{ $group->students_count }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
