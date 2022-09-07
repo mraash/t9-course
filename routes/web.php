@@ -13,11 +13,11 @@ Route::get('/students', function () {
     return view('pages.students.archive-students');
 })->name('students.index');
 
-Route::get('/students/add', [StudentsController::class, 'create'])->name('students.add');
-Route::post('/students/add', [StudentsController::class, 'store'])->name('students.store');
+Route::get('/students/add', [StudentsController::class, 'add'])->name('students.add');
+Route::post('/students/add', [StudentsController::class, 'create'])->name('students.create');
 
-Route::get('/students/delete', [StudentsController::class, 'delete'])->name('students.delete');
-Route::delete('/students/delete', [StudentsController::class, 'destroy'])->name('students.destroy');
+Route::get('/students/delete', [StudentsController::class, 'remove'])->name('students.remove');
+Route::delete('/students/delete', [StudentsController::class, 'delete'])->name('students.delete');
 
 Route::get('/students/{id}', function () {
     return view('pages.students.single-student');

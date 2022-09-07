@@ -90,7 +90,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('students.delete') }}" class="nav-link">
+                                <a href="{{ route('students.remove') }}" class="nav-link">
                                     <i class="nav-icon fas fa-user-minus"></i>
                                     <p>
                                         Delete student

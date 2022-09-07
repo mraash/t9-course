@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Domain\Services\StudentsService;
-use App\Http\Requests\Students\DestroyStudentRequest;
+use App\Http\Requests\Students\DeleteStudentRequest;
 use App\Http\Requests\Students\StoreStudentRequest;
 
 class StudentsController extends Controller
@@ -20,7 +20,7 @@ class StudentsController extends Controller
     /**
      * Show the form for creating a new student.
      */
-    public function create(): View
+    public function add(): View
     {
         return $this->makeView('pages.students.add-student');
     }
@@ -28,7 +28,7 @@ class StudentsController extends Controller
     /**
      * Store a newly created student in storage.
      */
-    public function store(StoreStudentRequest $request): RedirectResponse
+    public function create(StoreStudentRequest $request): RedirectResponse
     {
         $firstName = strval($request->input('first-name'));
         $lastName = strval($request->input('last-name'));
@@ -44,7 +44,7 @@ class StudentsController extends Controller
     /**
      * Show the form for deleting the student.
      */
-    public function delete(): View
+    public function remove(): View
     {
         return $this->makeView('pages.students.delete-student');
     }
@@ -52,7 +52,7 @@ class StudentsController extends Controller
     /**
      * Remove the specified student from storage.
      */
-    public function destroy(DestroyStudentRequest $request): RedirectResponse
+    public function delete(DeleteStudentRequest $request): RedirectResponse
     {
         $id = intval($request->input('id'));
 
