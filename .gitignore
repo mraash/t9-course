@@ -15,4 +15,5 @@
 .env
 .env.testing
 .env.backup
+.env.*.exx.env
 .phpunit.result.cache
