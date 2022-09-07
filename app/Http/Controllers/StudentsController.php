@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Domain\Services\CoursesService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Domain\Services\StudentsService;
 use App\Http\Requests\Students\DeleteStudentRequest;
+use App\Http\Requests\Students\IndexStudentsRequest;
 use App\Http\Requests\Students\StoreStudentRequest;
 
 class StudentsController extends Controller
@@ -20,9 +22,21 @@ class StudentsController extends Controller
     /**
      * Display a listing of the _____.
      */
-    public function index(): View
+    public function index(IndexStudentsRequest $request, CoursesService $coursesService): View
     {
-        return $this->makeView('pages.students.archive-students');
+        $hasCourse = $request->input('course') !== null;
+        $selectedCourseId = $hasCourse ? intval($request->input('course')) : null;
+
+        $courses = $coursesService->getAll();
+        $students = $hasCourse
+            ? $this->studentsService->getPaginatedFromCourse($selectedCourseId, 20)
+            : $this->studentsService->getAllPaginated(20)
+        ;
+
+        return $this->makeView(
+            'pages.students.archive-students',
+            compact('courses', 'students')
+        );
     }
 
     /**
