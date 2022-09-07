@@ -14,7 +14,7 @@ class StudentsRepository extends Repository
         parent::__construct($model);
     }
 
-    public function create(string $firstName, string $lastName): void
+    public function create(string $firstName, string $lastName): Student
     {
         $student = $this->student();
 
@@ -22,6 +22,8 @@ class StudentsRepository extends Repository
         $student->last_name = $lastName;
 
         $student->save();
+
+        return $student;
     }
 
     public function delete(int $id): void

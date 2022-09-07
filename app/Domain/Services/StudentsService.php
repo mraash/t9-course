@@ -13,9 +13,11 @@ class StudentsService
     ) {
     }
 
-    public function create(string $firstName, string $lastName): void
+    public function create(string $firstName, string $lastName): int
     {
-        $this->studentsRepository->create($firstName, $lastName);
+        $student = $this->studentsRepository->create($firstName, $lastName);
+
+        return $student->id;
     }
 
     public function delete(int $id): void

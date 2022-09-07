@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Domain\Services\StudentsService;
 use App\Http\Requests\Students\DestroyStudentRequest;
+use App\Http\Requests\Students\StoreStudentRequest;
 
 class StudentsController extends Controller
 {
@@ -27,9 +28,17 @@ class StudentsController extends Controller
     /**
      * Store a newly created student in storage.
      */
-    public function store(): void
+    public function store(StoreStudentRequest $request): RedirectResponse
     {
-        $this->studentsService->create('Denis', 'Ivanov');
+        $firstName = strval($request->input('first-name'));
+        $lastName = strval($request->input('last-name'));
+
+        $id = $this->studentsService->create($firstName, $lastName);
+
+        return $this->makeRedirector()->back()->with(
+            'success',
+            "Successfully created student (with id $id)"
+        );
     }
 
     /**
