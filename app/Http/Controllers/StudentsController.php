@@ -27,7 +27,7 @@ class StudentsController extends Controller
     /**
      * Store a newly created student in storage.
      */
-    public function store()
+    public function store(): void
     {
         $this->studentsService->create('Denis', 'Ivanov');
     }
@@ -35,7 +35,7 @@ class StudentsController extends Controller
     /**
      * Show the form for deleting the student.
      */
-    public function delete()
+    public function delete(): View
     {
         return $this->makeView('pages.students.delete-student');
     }

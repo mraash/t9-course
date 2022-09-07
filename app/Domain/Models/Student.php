@@ -32,6 +32,7 @@ class Student extends Model
         return $this->belongsToMany(Course::class);
     }
 
+    /** @phpstan-ignore-next-line */
     protected static function newFactory()
     {
         return StudentFactory::new();

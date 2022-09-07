@@ -26,6 +26,7 @@ class StudentsRepository extends Repository
 
     public function delete(int $id): void
     {
+        /** @var Student|null */
         $student = $this->student()
             ->query()
             ->where('id', $id)
