@@ -6,19 +6,17 @@ use App\Http\Controllers\StudentsController;
 
 Route::redirect('/', '/students');
 
+Route::prefix('/groups')->controller(GroupsController::class)->group(function () {
+    Route::get('/', 'index')->name('groups.index');
+});
 
-Route::get('/groups', [GroupsController::class, 'index'])->name('groups.index');
+Route::prefix('/students')->controller(StudentsController::class)->group(function () {
+    Route::get('/', 'index')->name('students.index');
+    Route::get('/{id}', 'single')->name('students.single');
 
-Route::get('/students', function () {
-    return view('pages.students.archive-students');
-})->name('students.index');
+    Route::get('/add', 'add')->name('students.add');
+    Route::post('/add', 'create')->name('students.create');
 
-Route::get('/students/add', [StudentsController::class, 'add'])->name('students.add');
-Route::post('/students/add', [StudentsController::class, 'create'])->name('students.create');
-
-Route::get('/students/delete', [StudentsController::class, 'remove'])->name('students.remove');
-Route::delete('/students/delete', [StudentsController::class, 'delete'])->name('students.delete');
-
-Route::get('/students/{id}', function () {
-    return view('pages.students.single-student');
-})->name('students.single');
+    Route::get('/delete', 'remove')->name('students.remove');
+    Route::delete('/delete', 'delete')->name('students.delete');
+});

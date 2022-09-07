@@ -18,6 +18,22 @@ class StudentsController extends Controller
     }
 
     /**
+     * Display a listing of the _____.
+     */
+    public function index(): View
+    {
+        return $this->makeView('pages.students.archive-students');
+    }
+
+    /**
+     * Display the specified _____.
+     */
+    public function single(int $id): View
+    {
+        return $this->makeView('pages.students.single-student');
+    }
+
+    /**
      * Show the form for creating a new student.
      */
     public function add(): View
