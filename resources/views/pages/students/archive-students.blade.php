@@ -52,7 +52,7 @@
                             <td>
                                 <a
                                     class="btn btn-success"
-                                    href="{{ route('students.single', $student->id) }}"
+                                    href="{{ route('pages.students.single', $student->id) }}"
                                 >
                                     View
                                 </a>

@@ -10,8 +10,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Domain\Services\StudentsService;
 use App\Http\Requests\Students\DeleteStudentRequest;
-use App\Http\Requests\Students\IndexStudentsRequest;
-use App\Http\Requests\Students\StoreStudentRequest;
+use App\Http\Requests\Students\ShowIndexStudentsRequest;
+use App\Http\Requests\Students\CreateStudentRequest;
 
 class StudentsController extends Controller
 {
@@ -21,10 +21,7 @@ class StudentsController extends Controller
     ) {
     }
 
-    /**
-     * Display a listing of the _____.
-     */
-    public function index(IndexStudentsRequest $request, CoursesService $coursesService): View
+    public function showIndex(ShowIndexStudentsRequest $request, CoursesService $coursesService): View
     {
         $hasCourse = $request->input('course') !== null;
         $selectedCourseId = $hasCourse ? intval($request->input('course')) : null;
@@ -36,33 +33,24 @@ class StudentsController extends Controller
         ;
 
         return $this->makeView(
-            'pages.students.archive-students',
+            'pages/students/archive-students',
             compact('courses', 'students')
         );
     }
 
-    /**
-     * Display the specified _____.
-     */
-    public function single(int $id): View
+    public function showSingle(int $id): View
     {
         $student = $this->studentsRepository->getById($id);
 
-        return $this->makeView('pages.students.single-student', compact('student'));
+        return $this->makeView('pages/students/single-student', compact('student'));
     }
 
-    /**
-     * Show the form for creating a new student.
-     */
-    public function add(): View
+    public function showCreateForm(): View
     {
-        return $this->makeView('pages.students.add-student');
+        return $this->makeView('pages/students/add-student');
     }
 
-    /**
-     * Store a newly created student in storage.
-     */
-    public function create(StoreStudentRequest $request): RedirectResponse
+    public function create(CreateStudentRequest $request): RedirectResponse
     {
         $firstName = strval($request->input('first-name'));
         $lastName = strval($request->input('last-name'));
@@ -75,17 +63,11 @@ class StudentsController extends Controller
         );
     }
 
-    /**
-     * Show the form for deleting the student.
-     */
-    public function remove(): View
+    public function showDeleteForm(): View
     {
-        return $this->makeView('pages.students.delete-student');
+        return $this->makeView('pages/students/delete-student');
     }
 
-    /**
-     * Remove the specified student from storage.
-     */
     public function delete(DeleteStudentRequest $request): RedirectResponse
     {
         $id = intval($request->input('id'));

@@ -51,7 +51,7 @@
                 </ul>
             </nav>
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <a href="{{ route('students.index') }}" class="brand-link">
+                <a href="{{ route('pages.students.index') }}" class="brand-link">
                     <img
                         src="{{ asset('/admin-lte/dist/img/AdminLTELogo.png') }}"
                         alt="AdminLTE Logo"
@@ -66,7 +66,7 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item">
-                                <a href="{{ route('groups.index') }}" class="nav-link">
+                                <a href="{{ route('pages.groups.index') }}" class="nav-link">
                                     <i class="nav-icon fas fa-layer-group"></i>
                                     <p>
                                         Groups
@@ -74,7 +74,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('students.index') }}" class="nav-link">
+                                <a href="{{ route('pages.students.index') }}" class="nav-link">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         Students
@@ -82,7 +82,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('students.add') }}" class="nav-link">
+                                <a href="{{ route('pages.students.add') }}" class="nav-link">
                                     <i class="nav-icon fas fa-user-plus"></i>
                                     <p>
                                         Add student
@@ -90,7 +90,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('students.remove') }}" class="nav-link">
+                                <a href="{{ route('pages.students.delete') }}" class="nav-link">
                                     <i class="nav-icon fas fa-user-minus"></i>
                                     <p>
                                         Delete student

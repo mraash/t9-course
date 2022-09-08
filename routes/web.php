@@ -7,21 +7,20 @@ use App\Http\Controllers\StudentsController;
 Route::redirect('/', '/students');
 
 Route::prefix('/groups')->controller(GroupsController::class)->group(function () {
-    Route::get('/', 'index')->name('groups.index');
+    Route::get('/', 'showIndex')->name('pages.groups.index');
 });
 
 Route::prefix('/students')->controller(StudentsController::class)->group(function () {
-    Route::get('/', 'index')->name('students.index');
-    Route::get('/{id}', 'single')->name('students.single');
+    Route::get('/', 'showIndex')->name('pages.students.index');
+    Route::get('/{id}', 'showSingle')->name('pages.students.single');
 
-    Route::get('/add', 'add')->name('students.add');
-    Route::post('/add', 'create')->name('students.create');
+    Route::get('/add', 'showCreateForm')->name('pages.students.add');
+    Route::post('/add', 'create')->name('actions.students.add');
 
-    Route::get('/delete', 'remove')->name('students.remove');
-    Route::delete('/delete', 'delete')->name('students.delete');
+    Route::get('/delete', 'showDeleteForm')->name('pages.students.delete');
+    Route::delete('/delete', 'delete')->name('actions.students.delete');
 
-    Route::delete('/{id}/courses/{courseId}/delete', 'removeCourse')
-        ->name('students.courses.delete')
+    Route::delete('/{id}/courses/{courseId}/delete', 'removeCourse')->name('actions.students.courses.delete')
         ->whereNumber('courseId')
     ;
 });

@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form action="{{ route('students.create') }}" method="POST">
+    <form action="{{ route('actions.students.add') }}" method="POST">
         @csrf
         @method('POST')
 

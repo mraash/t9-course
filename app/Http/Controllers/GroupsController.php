@@ -15,10 +15,7 @@ class GroupsController extends Controller
     ) {
     }
 
-    /**
-     * Display a listing of the groups.
-     */
-    public function index(IndexGroupRequest $request): View
+    public function showIndex(IndexGroupRequest $request): View
     {
         $isMaxStudentsEmpty = $request->input('max-students') === null;
 
@@ -26,6 +23,6 @@ class GroupsController extends Controller
 
         $groups = $this->groupsService->getGroupList($maxStudents);
 
-        return $this->makeView('pages.groups.find-group', compact('groups'));
+        return $this->makeView('pages/groups/find-group', compact('groups'));
     }
 }

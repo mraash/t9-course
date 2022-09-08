@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form action="{{ route('students.delete') }}" method="POST">
+    <form action="{{ route('actions.students.delete') }}" method="POST">
         @csrf
         @method('DELETE')
         <div class="form-group">

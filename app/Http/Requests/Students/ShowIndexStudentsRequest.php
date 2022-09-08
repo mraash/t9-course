@@ -6,7 +6,7 @@ namespace App\Http\Requests\Students;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexStudentsRequest extends FormRequest
+class ShowIndexStudentsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
