@@ -38,6 +38,16 @@ class StudentsRepository extends Repository
         ;
     }
 
+    public function getById(int $id): Student
+    {
+        return $this->student()
+            ->query()
+            ->where('id', $id)
+            ->with(['courses'])
+            ->first()
+        ;
+    }
+
     public function create(string $firstName, string $lastName): Student
     {
         $student = $this->student();
@@ -64,6 +74,16 @@ class StudentsRepository extends Repository
         }
 
         $student->delete();
+    }
+
+    public function removeCourse(int $id, int $courseId): void
+    {
+        $this->student()
+            ->query()
+            ->find($id)
+            ->courses()
+            ->detach($courseId)
+        ;
     }
 
     protected function student(): Student

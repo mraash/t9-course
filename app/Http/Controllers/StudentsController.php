@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Domain\Repositories\StudentsRepository;
 use App\Domain\Services\CoursesService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,7 @@ use App\Http\Requests\Students\StoreStudentRequest;
 class StudentsController extends Controller
 {
     public function __construct(
+        private StudentsRepository $studentsRepository,
         private StudentsService $studentsService
     ) {
     }
@@ -44,7 +46,9 @@ class StudentsController extends Controller
      */
     public function single(int $id): View
     {
-        return $this->makeView('pages.students.single-student');
+        $student = $this->studentsRepository->getById($id);
+
+        return $this->makeView('pages.students.single-student', compact('student'));
     }
 
     /**
@@ -92,5 +96,12 @@ class StudentsController extends Controller
             'success',
             "Successfully deleted student with id $id"
         );
+    }
+
+    public function removeCourse(int $id, int $courseId): RedirectResponse
+    {
+        $this->studentsRepository->removeCourse($id, $courseId);
+
+        return $this->makeRedirector()->back();
     }
 }

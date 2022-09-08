@@ -19,4 +19,9 @@ Route::prefix('/students')->controller(StudentsController::class)->group(functio
 
     Route::get('/delete', 'remove')->name('students.remove');
     Route::delete('/delete', 'delete')->name('students.delete');
+
+    Route::delete('/{id}/courses/{courseId}/delete', 'removeCourse')
+        ->name('students.courses.delete')
+        ->whereNumber('courseId')
+    ;
 });

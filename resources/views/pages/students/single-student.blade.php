@@ -24,7 +24,7 @@
                                 ID
                             </td>
                             <td class="td-paddinged">
-                                1
+                                {{ $student->id }}
                             </td>
                         </tr>
                         <tr>
@@ -32,7 +32,7 @@
                                 First name
                             </td>
                             <td class="td-paddinged">
-                                first
+                                {{ $student->first_name }}
                             </td>
                         </tr>
                         <tr>
@@ -40,7 +40,7 @@
                                 Last name
                             </td>
                             <td class="td-paddinged">
-                                last
+                                {{ $student->last_name }}
                             </td>
                         </tr>
                     </tbody>
@@ -58,42 +58,49 @@
             <option>Biology</option>
         </select>
 
-        <button class="btn btn-success" style="text-overflow: ellipsis; white-space: nowrap;">Add</button>
+        <button class="btn btn-success" style="
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        ">
+            Add
+        </button>
     </div>
 
     <h4 class="mt-4">
         Current courses:
     </h4>
-    <div class="card mb-4 w-50">
-        <div class="card-body p-0">
-            <table class="table table-sm">
-                <tbody>
-                    <tr>
-                        <td class="w-100 align-middle">
-                            Math
-                        </td>
-                        <td class="normal-padding">
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-100 align-middle">
-                            Biology
-                        </td>
-                        <td class="normal-padding">
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-100 align-middle">
-                            History
-                        </td>
-                        <td class="normal-padding">
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    @if ($student->courses->count() > 0)
+        <div class="card mb-4 w-50">
+            <div class="card-body p-0">
+                    <table class="table table-sm">
+                        <tbody>
+                            @foreach ($student->courses as $course)
+                                <tr>
+                                    <td class="w-100 align-middle">
+                                        {{ $course->name }}
+                                    </td>
+                                    <td class="normal-padding">
+                                        <form
+                                            action="{{ route(
+                                                'students.courses.delete',
+                                                [$student->id, $course->id]
+                                            ) }}"
+                                            method="POST"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                Remove
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+            </div>
         </div>
-    </div>
+    @else
+        No courses :(
+    @endif
 @endsection
