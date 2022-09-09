@@ -14,6 +14,7 @@ use App\Http\Requests\Students\AddCourseRequest;
 use App\Http\Requests\Students\DeleteStudentRequest;
 use App\Http\Requests\Students\ShowIndexStudentsRequest;
 use App\Http\Requests\Students\CreateStudentRequest;
+use App\Http\Requests\Students\RemoveCourseRequest;
 
 class StudentsController extends Controller
 {
@@ -92,8 +93,10 @@ class StudentsController extends Controller
         return $this->makeRedirector()->back();
     }
 
-    public function removeCourse(int $id, int $courseId): RedirectResponse
+    public function removeCourse(RemoveCourseRequest $request, int $id): RedirectResponse
     {
+        $courseId = intval($request->input('course_id'));
+
         $this->studentsRepository->removeCourse($id, $courseId);
 
         return $this->makeRedirector()->back();

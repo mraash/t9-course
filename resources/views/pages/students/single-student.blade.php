@@ -88,12 +88,17 @@
                                         <form
                                             action="{{ route(
                                                 'actions.students.courses.delete',
-                                                [$student->id, $course->id]
+                                                $student->id
                                             ) }}"
                                             method="POST"
                                         >
                                             @csrf
                                             @method('DELETE')
+                                            <input
+                                                type="hidden"
+                                                name="course_id"
+                                                value="{{ $course->id }}"
+                                            >
                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 Remove
                                             </button>

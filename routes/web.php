@@ -20,9 +20,7 @@ Route::prefix('/students')->controller(StudentsController::class)->group(functio
     Route::get('/delete', 'showDeleteForm')->name('pages.students.delete');
     Route::delete('/delete', 'delete')->name('actions.students.delete');
 
-    Route::delete('/{id}/courses/{courseId}/delete', 'removeCourse')->name('actions.students.courses.delete')
-        ->whereNumber('courseId')
-    ;
+    Route::delete('/{id}/courses/delete', 'removeCourse')->name('actions.students.courses.delete');
 
     Route::put('/{id}/courses/add', 'addCourse')->name('actions.students.courses.add');
 });
