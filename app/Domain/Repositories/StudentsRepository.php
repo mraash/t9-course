@@ -76,6 +76,16 @@ class StudentsRepository extends Repository
         $student->delete();
     }
 
+    public function addCourse(int $id, int $courseId): void
+    {
+        $this->student()
+            ->query()
+            ->find($id)
+            ->courses()
+            ->attach($courseId)
+        ;
+    }
+
     public function removeCourse(int $id, int $courseId): void
     {
         $this->student()

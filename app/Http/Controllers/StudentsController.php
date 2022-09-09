@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Domain\Repositories\CoursesRepository;
 use App\Domain\Repositories\StudentsRepository;
 use App\Domain\Services\CoursesService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Domain\Services\StudentsService;
+use App\Http\Requests\Students\AddCourseRequest;
 use App\Http\Requests\Students\DeleteStudentRequest;
 use App\Http\Requests\Students\ShowIndexStudentsRequest;
 use App\Http\Requests\Students\CreateStudentRequest;
@@ -38,11 +40,12 @@ class StudentsController extends Controller
         );
     }
 
-    public function showSingle(int $id): View
+    public function showSingle(CoursesRepository $coursesRepository, int $id): View
     {
         $student = $this->studentsRepository->getById($id);
+        $courses = $coursesRepository->getAll();
 
-        return $this->makeView('pages/students/single-student', compact('student'));
+        return $this->makeView('pages/students/single-student', compact('student', 'courses'));
     }
 
     public function showCreateForm(): View
@@ -78,6 +81,15 @@ class StudentsController extends Controller
             'success',
             "Successfully deleted student with id $id"
         );
+    }
+
+    public function addCourse(AddCourseRequest $request, int $id): RedirectResponse
+    {
+        $courseId = intval($request->input('course_id'));
+
+        $this->studentsRepository->addCourse($id, $courseId);
+
+        return $this->makeRedirector()->back();
     }
 
     public function removeCourse(int $id, int $courseId): RedirectResponse

@@ -52,19 +52,24 @@
     <h4>
         Add course:
     </h4>
-    <div class="form-group d-flex justify-content-between w-50">
-        <select class="form-control mr-2">
-            <option>Math</option>
-            <option>Biology</option>
-        </select>
+    <form action="{{ route('actions.students.courses.add', $student->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="form-group d-flex justify-content-between w-50">
+            <select name="course_id" class="form-control mr-2">
+                @foreach ($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                @endforeach
+            </select>
 
-        <button class="btn btn-success" style="
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        ">
-            Add
-        </button>
-    </div>
+            <button class="btn btn-success" style="
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            ">
+                Add
+            </button>
+        </div>
+    </form>
 
     <h4 class="mt-4">
         Current courses:

@@ -23,4 +23,6 @@ Route::prefix('/students')->controller(StudentsController::class)->group(functio
     Route::delete('/{id}/courses/{courseId}/delete', 'removeCourse')->name('actions.students.courses.delete')
         ->whereNumber('courseId')
     ;
+
+    Route::put('/{id}/courses/add', 'addCourse')->name('actions.students.courses.add');
 });
