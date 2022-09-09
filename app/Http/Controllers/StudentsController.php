@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Domain\Repositories\CoursesRepository;
-use App\Domain\Repositories\StudentsRepository;
-use App\Domain\Services\CoursesService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Domain\Repositories\CoursesRepository;
+use App\Domain\Services\CoursesService;
 use App\Domain\Services\StudentsService;
 use App\Http\Requests\Students\AddCourseRequest;
 use App\Http\Requests\Students\DeleteStudentRequest;
@@ -19,7 +18,6 @@ use App\Http\Requests\Students\RemoveCourseRequest;
 class StudentsController extends Controller
 {
     public function __construct(
-        private StudentsRepository $studentsRepository,
         private StudentsService $studentsService
     ) {
     }
@@ -43,7 +41,7 @@ class StudentsController extends Controller
 
     public function showSingle(CoursesRepository $coursesRepository, int $id): View
     {
-        $student = $this->studentsRepository->getById($id);
+        $student = $this->studentsService->getById($id);
         $courses = $coursesRepository->getAll();
 
         return $this->makeView('pages/students/single-student', compact('student', 'courses'));
@@ -59,11 +57,11 @@ class StudentsController extends Controller
         $firstName = strval($request->input('first-name'));
         $lastName = strval($request->input('last-name'));
 
-        $id = $this->studentsService->create($firstName, $lastName);
+        $student = $this->studentsService->create($firstName, $lastName);
 
         return $this->makeRedirector()->back()->with(
             'success',
-            "Successfully created student (with id $id)"
+            "Successfully created student (with id $student->id)"
         );
     }
 
@@ -88,7 +86,7 @@ class StudentsController extends Controller
     {
         $courseId = intval($request->input('course_id'));
 
-        $this->studentsRepository->addCourse($id, $courseId);
+        $this->studentsService->addCourse($id, $courseId);
 
         return $this->makeRedirector()->back();
     }
@@ -97,7 +95,7 @@ class StudentsController extends Controller
     {
         $courseId = intval($request->input('course_id'));
 
-        $this->studentsRepository->removeCourse($id, $courseId);
+        $this->studentsService->removeCourse($id, $courseId);
 
         return $this->makeRedirector()->back();
     }

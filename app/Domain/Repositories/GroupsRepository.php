@@ -6,7 +6,6 @@ namespace App\Domain\Repositories;
 
 use App\Domain\Models\Group;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class GroupsRepository extends Repository
 {

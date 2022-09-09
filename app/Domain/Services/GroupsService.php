@@ -18,7 +18,7 @@ class GroupsService
     /**
      * @return Collection<int,Group>
      */
-    public function getAllGroups(): Collection
+    public function getAll(): Collection
     {
         return $this->groupsRepository->getAll();
     }
@@ -26,7 +26,7 @@ class GroupsService
     /**
      * @return Collection<int,Group>
      */
-    public function getAviableGroups(int $maxStudents): Collection
+    public function getAviable(int $maxStudents): Collection
     {
         return $this->groupsRepository->getWithLessOrEqualStudents($maxStudents);
     }
