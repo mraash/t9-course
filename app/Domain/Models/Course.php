@@ -6,7 +6,6 @@ namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Database\Factories\CourseFactory;
 
@@ -20,6 +19,9 @@ class Course extends Model
 {
     use HasFactory;
 
+    /**
+     * @return BelongsToMany<Student>
+     */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class);

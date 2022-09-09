@@ -6,7 +6,6 @@ namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Database\Factories\GroupFactory;
 
@@ -29,6 +28,9 @@ class Group extends Model
         'updated_at',
     ];
 
+    /**
+     * @return HasMany<Student>
+     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);

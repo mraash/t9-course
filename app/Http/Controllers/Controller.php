@@ -33,7 +33,10 @@ class Controller extends BaseController
      */
     public function makeView(string $viewPath, array $data = []): View
     {
-        /** @var View */
+        /** 
+         * @var View
+         * @phpstan-ignore-next-line (ignore view-string type error)
+         */
         return view($viewPath, $data);
     }
 
