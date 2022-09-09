@@ -18,13 +18,16 @@ class GroupsService
     /**
      * @return Collection<int,Group>
      */
-    public function getGroupList(int $maximalStudents = null): Collection
+    public function getAllGroups(): Collection
     {
-        if ($maximalStudents === null) {
-            return $this->groupsRepository->getAll();
-        }
-        else {
-            return $this->groupsRepository->getWithLessOrEqualStudents($maximalStudents);
-        }
+        return $this->groupsRepository->getAll();
+    }
+
+    /**
+     * @return Collection<int,Group>
+     */
+    public function getAviableGroups(int $maxStudents): Collection
+    {
+        return $this->groupsRepository->getWithLessOrEqualStudents($maxStudents);
     }
 }

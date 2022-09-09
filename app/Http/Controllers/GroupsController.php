@@ -21,7 +21,10 @@ class GroupsController extends Controller
 
         $maxStudents = $isMaxStudentsEmpty ? null : intval($request->input('max-students'));
 
-        $groups = $this->groupsService->getGroupList($maxStudents);
+        $groups = $isMaxStudentsEmpty
+            ? $this->groupsService->getAllGroups()
+            : $this->groupsService->getAviableGroups($maxStudents)
+        ;
 
         return $this->makeView('pages/groups/find-group', compact('groups'));
     }

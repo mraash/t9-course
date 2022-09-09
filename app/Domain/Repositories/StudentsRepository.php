@@ -75,7 +75,7 @@ class StudentsRepository extends Repository
     {
         $this->getById($id)
             ->courses()
-            ->attach($courseId)
+            ->sync($courseId, false)
         ;
     }
 
