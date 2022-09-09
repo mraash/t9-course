@@ -40,12 +40,18 @@ class StudentsRepository extends Repository
 
     public function getById(int $id): Student
     {
-        return $this->student()
+        $student = $this->student()
             ->query()
             ->where('id', $id)
             ->with(['courses'])
             ->first()
         ;
+
+        if ($student === null) {
+            throw new UndefinedEntityException();
+        }
+
+        return $student;
     }
 
     public function create(string $firstName, string $lastName): Student
@@ -62,25 +68,12 @@ class StudentsRepository extends Repository
 
     public function delete(int $id): void
     {
-        /** @var Student|null */
-        $student = $this->student()
-            ->query()
-            ->where('id', $id)
-            ->first()
-        ;
-
-        if ($student === null) {
-            throw new UndefinedEntityException();
-        }
-
-        $student->delete();
+        $this->getById($id)->delete();
     }
 
     public function addCourse(int $id, int $courseId): void
     {
-        $this->student()
-            ->query()
-            ->find($id)
+        $this->getById($id)
             ->courses()
             ->attach($courseId)
         ;
@@ -88,9 +81,7 @@ class StudentsRepository extends Repository
 
     public function removeCourse(int $id, int $courseId): void
     {
-        $this->student()
-            ->query()
-            ->find($id)
+        $this->getById($id)
             ->courses()
             ->detach($courseId)
         ;
