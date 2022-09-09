@@ -8,6 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RemoveCourseRequest extends FormRequest
 {
+    /**
+     * @return array<string,string>
+     */
     public function rules(): array
     {
         return [

@@ -14,6 +14,9 @@ class CoursesRepository extends Repository
         parent::__construct($model);
     }
 
+    /**
+     * @return Collection<int,Course>
+     */
     public function getAll(): Collection
     {
         return $this->course()

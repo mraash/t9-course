@@ -28,9 +28,9 @@ class StudentsController extends Controller
         $selectedCourseId = $hasCourse ? intval($request->input('course')) : null;
 
         $courses = $coursesService->getAll();
-        $students = $hasCourse
-            ? $this->studentsService->getPaginatedFromCourse($selectedCourseId, 20)
-            : $this->studentsService->getAllPaginated(20)
+        $students = $selectedCourseId === null
+            ? $this->studentsService->getAllPaginated(20)
+            : $this->studentsService->getPaginatedFromCourse($selectedCourseId, 20)
         ;
 
         return $this->makeView(

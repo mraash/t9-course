@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Services;
 
-use App\Domain\Repositories\CoursesRepository;
 use Illuminate\Database\Eloquent\Collection;
+use App\Domain\Repositories\CoursesRepository;
+use App\Domain\Models\Course;
 
 class CoursesService
 {
@@ -14,6 +15,9 @@ class CoursesService
     ) {
     }
 
+    /**
+     * @return Collection<int,Course>
+     */
     public function getAll(): Collection
     {
         return $this->coursesRepository->getAll();

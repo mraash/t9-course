@@ -21,7 +21,7 @@ class GroupsController extends Controller
 
         $maxStudents = $isMaxStudentsEmpty ? null : intval($request->input('max-students'));
 
-        $groups = $isMaxStudentsEmpty
+        $groups = $maxStudents === null
             ? $this->groupsService->getAll()
             : $this->groupsService->getAviable($maxStudents)
         ;
