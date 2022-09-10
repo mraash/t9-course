@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller as BaseController;
 
-class Controller extends BaseController
+abstract class Controller extends BaseController
 {
     /**
      * @param array<string,mixed> $data

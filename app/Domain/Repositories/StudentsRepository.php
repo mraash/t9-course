@@ -7,12 +7,21 @@ namespace App\Domain\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Domain\Models\Student;
 use App\Exceptions\UndefinedEntityException;
+use Illuminate\Database\Eloquent\Collection;
 
 class StudentsRepository extends Repository
 {
     public function __construct(Student $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * @return Collection<int,Student>
+     */
+    public function getAll(): Collection
+    {
+        return $this->student()->all();
     }
 
     public function getAllPaginated(int $prePage): LengthAwarePaginator

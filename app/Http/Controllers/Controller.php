@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Routing\Redirector;
 
-class Controller extends BaseController
+abstract class Controller extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;

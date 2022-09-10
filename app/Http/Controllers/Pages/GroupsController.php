@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Pages;
 
 use Illuminate\Contracts\View\View;
 use App\Domain\Services\GroupsService;
-use App\Http\Requests\Groups\IndexGroupRequest;
+use App\Http\Requests\Pages\Groups\IndexGroupRequest;
 
 class GroupsController extends Controller
 {

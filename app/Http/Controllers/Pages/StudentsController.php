@@ -10,11 +10,11 @@ use App\Domain\Repositories\CoursesRepository;
 use App\Domain\Services\CoursesService;
 use App\Domain\Services\StudentsService;
 use App\Exceptions\UndefinedEntityException;
-use App\Http\Requests\Students\AddCourseRequest;
-use App\Http\Requests\Students\DeleteStudentRequest;
-use App\Http\Requests\Students\ShowIndexStudentsRequest;
-use App\Http\Requests\Students\CreateStudentRequest;
-use App\Http\Requests\Students\RemoveCourseRequest;
+use App\Http\Requests\Pages\Students\AddCourseRequest;
+use App\Http\Requests\Pages\Students\DeleteStudentRequest;
+use App\Http\Requests\Pages\Students\ShowIndexStudentsRequest;
+use App\Http\Requests\Pages\Students\CreateStudentRequest;
+use App\Http\Requests\Pages\Students\RemoveCourseRequest;
 
 class StudentsController extends Controller
 {
