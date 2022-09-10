@@ -4,58 +4,61 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Domain\Models\Student;
 use App\Domain\Repositories\StudentsRepository;
 use App\Exceptions\UndefinedEntityException;
-use App\Http\Requests\Api\V1\StoreStudentRequest;
+use App\Http\Requests\Api\V1\Students\StoreStudentRequest;
 use App\Http\Resources\V1\StudentResource;
+use Illuminate\Http\Request;
 
-class StudentsController
+class StudentsController extends Controller
 {
     public function __construct(
         private StudentsRepository $studentsRepository
     ) {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $students = $this->studentsRepository->getAll();
 
-        return StudentResource::collection($students);
+        $resources = StudentResource::collection($students);
+
+        return $this->makeSuccessResponse($resources->toArray($request));
     }
 
-    public function show(int $id)
+    public function show(Request $request, int $id)
     {
-        $student = $this->studentsRepository->getById($id);
+        try {
+            $student = $this->studentsRepository->getById($id);
+        }
+        catch (UndefinedEntityException) {
+            $this->throwResponseException('Not found', 404);
+        }
 
-        return new StudentResource($student);
+        $resource = new StudentResource($student);
+
+        return $this->makeSuccessResponse($resource->toArray($request));
     }
 
-    public function store(StoreStudentRequest $request): array
+    public function store(StoreStudentRequest $request)
     {
         $firstName = $request->firstNameInput();
         $lastName = $request->lastNameInput();
 
         $this->studentsRepository->create($firstName, $lastName);
 
-        return [
-            'success' => true,
-        ];
+        return $this->makeSuccessResponse();
     }
 
-    public function destroy(int $id): array
+    public function destroy(int $id)
     {
         try {
             $this->studentsRepository->delete($id);
         }
         catch (UndefinedEntityException) {
-            return [
-                'success' => false,
-            ];
+            $this->throwResponseException('Not found', 404);
         }
 
-        return [
-            'success' => true,
-        ];
+        return $this->makeSuccessResponse();
     }
 }

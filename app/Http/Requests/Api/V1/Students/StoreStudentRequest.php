@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Api\V1;
+namespace App\Http\Requests\Api\V1\Students;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\V1\ApiRequest;
 
-class StoreStudentRequest extends FormRequest
+class StoreStudentRequest extends ApiRequest
 {
     public function authorize(): bool
     {
