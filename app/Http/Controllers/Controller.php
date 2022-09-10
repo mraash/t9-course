@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\InvalidReturnException;
-use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,18 +24,6 @@ class Controller extends BaseController
     {
         /** @var Response */
         return response($content, $status, $headers);
-    }
-
-    /**
-     * @param array<string,mixed> $data
-     */
-    public function makeView(string $viewPath, array $data = []): View
-    {
-        /** 
-         * @var View
-         * @phpstan-ignore-next-line (ignore view-string type error)
-         */
-        return view($viewPath, $data);
     }
 
     public function makeRedirector(): Redirector

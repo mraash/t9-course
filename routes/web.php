@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GroupsController;
-use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\Pages\GroupsController;
+use App\Http\Controllers\Pages\StudentsController;
 
 Route::redirect('/', '/students');
 
