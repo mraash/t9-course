@@ -14,7 +14,12 @@ class AddCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course_id' => 'required|int|min:1|exists:courses,id'
+            'course-id' => 'required|int|min:1|exists:courses,id'
         ];
+    }
+
+    public function getCourseIdInput(): int
+    {
+        return (int)$this->input('course-id');
     }
 }

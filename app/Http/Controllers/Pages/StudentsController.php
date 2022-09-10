@@ -25,8 +25,7 @@ class StudentsController extends Controller
 
     public function showIndex(ShowIndexStudentsRequest $request, CoursesService $coursesService): View
     {
-        $hasCourse = $request->input('course') !== null;
-        $selectedCourseId = $hasCourse ? intval($request->input('course')) : null;
+        $selectedCourseId = $request->getCourseIdInputOrNull();
 
         $courses = $coursesService->getAll();
         $students = $selectedCourseId === null
@@ -61,8 +60,8 @@ class StudentsController extends Controller
 
     public function create(CreateStudentRequest $request): RedirectResponse
     {
-        $firstName = strval($request->input('first-name'));
-        $lastName = strval($request->input('last-name'));
+        $firstName = $request->getFirstNameInput();
+        $lastName = $request->getLastNameInput();
 
         $student = $this->studentsService->create($firstName, $lastName);
 
@@ -79,7 +78,7 @@ class StudentsController extends Controller
 
     public function delete(DeleteStudentRequest $request): RedirectResponse
     {
-        $id = intval($request->input('id'));
+        $id = $request->getIdInput();
 
         $this->studentsService->delete($id);
 
@@ -91,7 +90,7 @@ class StudentsController extends Controller
 
     public function addCourse(AddCourseRequest $request, int $id): RedirectResponse
     {
-        $courseId = intval($request->input('course_id'));
+        $courseId = $request->getCourseIdInput();
 
         try {
             $this->studentsService->addCourse($id, $courseId);
@@ -107,7 +106,7 @@ class StudentsController extends Controller
 
     public function removeCourse(RemoveCourseRequest $request, int $id): RedirectResponse
     {
-        $courseId = intval($request->input('course_id'));
+        $courseId = $request->getCourseIdInput();
 
         try {
             $this->studentsService->removeCourse($id, $courseId);

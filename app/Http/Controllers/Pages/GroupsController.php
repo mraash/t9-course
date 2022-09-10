@@ -17,9 +17,7 @@ class GroupsController extends Controller
 
     public function showIndex(IndexGroupRequest $request): View
     {
-        $isMaxStudentsEmpty = $request->input('max-students') === null;
-
-        $maxStudents = $isMaxStudentsEmpty ? null : intval($request->input('max-students'));
+        $maxStudents = $request->getMaxStudentsInputOrNull();
 
         $groups = $maxStudents === null
             ? $this->groupsService->getAll()

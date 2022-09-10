@@ -19,7 +19,21 @@ class ShowIndexStudentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course' => 'nullable|int|min:0|exists:courses,id',
+            'course-id' => 'nullable|int|min:0|exists:courses,id',
         ];
+    }
+
+    public function hasCourseIdInput(): bool
+    {
+        return $this->input('course-id') !== null;
+    }
+
+    public function getCourseIdInputOrNull(): int|null
+    {
+        if (!$this->hasCourseIdInput()) {
+            return null;
+        }
+
+        return (int)$this->input('course-id');
     }
 }

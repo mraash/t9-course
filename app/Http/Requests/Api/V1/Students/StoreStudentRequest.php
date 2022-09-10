@@ -19,20 +19,20 @@ class StoreStudentRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'first-name' => 'required|string|max:255',
+            'last-name' => 'required|string|max:255',
         ];
     }
 
     public function firstNameInput(): string
     {
         /** @var string */
-        return $this->input('first_name');
+        return $this->input('first-name');
     }
 
     public function lastNameInput(): string
     {
         /** @var string */
-        return $this->input('last_name');
+        return $this->input('last-name');
     }
 }

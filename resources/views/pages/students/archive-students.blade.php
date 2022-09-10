@@ -15,11 +15,11 @@
             <label class="form-check-label" for="equal-or-less-input">
                 From course
             </label>
-            <select name="course" class="form-control">
+            <select name="course-id" class="form-control">
                 <option value="">-</option>
                 @foreach ($courses as $course)
                     <option
-                        @selected(request()->input('course') == $course->id)
+                        @selected(request()->input('course-id') == $course->id)
                         value="{{ $course->id }}"
                     >
                         {{ $course->id }}. {{ $course->name }}

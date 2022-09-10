@@ -34,4 +34,14 @@ class CreateStudentRequest extends FormRequest
             'last-name' => 'last name',
         ];
     }
+
+    public function getFirstNameInput(): string
+    {
+        return (string)$this->input('first-name');
+    }
+
+    public function getLastNameInput(): string
+    {
+        return (string)$this->input('last-name');
+    }
 }

@@ -62,7 +62,7 @@
         @csrf
         @method('PUT')
         <div class="form-group d-flex justify-content-between w-50">
-            <select name="course_id" class="form-control mr-2">
+            <select name="course-id" class="form-control mr-2">
                 @foreach ($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
@@ -102,7 +102,7 @@
                                             @method('DELETE')
                                             <input
                                                 type="hidden"
-                                                name="course_id"
+                                                name="course-id"
                                                 value="{{ $course->id }}"
                                             >
                                             <button type="submit" class="btn btn-sm btn-danger">

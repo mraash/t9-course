@@ -35,4 +35,9 @@ class DeleteStudentRequest extends FormRequest
             'id.exists' => 'There is no student with :attribute :input',
         ];
     }
+
+    public function getIdInput(): int
+    {
+        return (int)$this->input('id');
+    }
 }

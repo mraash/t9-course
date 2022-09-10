@@ -32,4 +32,18 @@ class IndexGroupRequest extends FormRequest
             'max-students' => 'number of maximal students',
         ];
     }
+
+    public function hasMaxStudentsInput(): bool
+    {
+        return $this->input('max-students') !== null;
+    }
+
+    public function getMaxStudentsInputOrNull(): int|null
+    {
+        if (!$this->hasMaxStudentsInput()) {
+            return null;
+        }
+
+        return (int)$this->input('max-students');
+    }
 }
