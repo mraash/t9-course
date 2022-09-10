@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Domain\Repositories\CoursesRepository;
 use App\Domain\Services\CoursesService;
 use App\Domain\Services\StudentsService;
+use App\Exceptions\UndefinedEntityException;
 use App\Http\Requests\Students\AddCourseRequest;
 use App\Http\Requests\Students\DeleteStudentRequest;
 use App\Http\Requests\Students\ShowIndexStudentsRequest;
@@ -41,8 +42,14 @@ class StudentsController extends Controller
 
     public function showSingle(CoursesRepository $coursesRepository, int $id): View
     {
-        $student = $this->studentsService->getById($id);
         $courses = $coursesRepository->getAll();
+
+        try {
+            $student = $this->studentsService->getById($id);
+        }
+        catch (UndefinedEntityException $err) {
+            abort(404);
+        }
 
         return $this->makeView('pages/students/single-student', compact('student', 'courses'));
     }
@@ -86,7 +93,14 @@ class StudentsController extends Controller
     {
         $courseId = intval($request->input('course_id'));
 
-        $this->studentsService->addCourse($id, $courseId);
+        try {
+            $this->studentsService->addCourse($id, $courseId);
+        }
+        catch (UndefinedEntityException) {
+            return $this->makeRedirector()->back()->withErrors([
+                "There is no student with id $id"
+            ]);
+        }
 
         return $this->makeRedirector()->back();
     }
@@ -95,7 +109,14 @@ class StudentsController extends Controller
     {
         $courseId = intval($request->input('course_id'));
 
-        $this->studentsService->removeCourse($id, $courseId);
+        try {
+            $this->studentsService->removeCourse($id, $courseId);
+        }
+        catch (UndefinedEntityException) {
+            return $this->makeRedirector()->back()->withErrors([
+                "There is no student with id $id"
+            ]);
+        }
 
         return $this->makeRedirector()->back();
     }

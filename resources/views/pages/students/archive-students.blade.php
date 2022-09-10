@@ -4,6 +4,12 @@
 @section ('tableTitle', 'Students')
 
 @section ('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
+        </div>
+    @endif
+
     <form>
         <div class="form-group">
             <label class="form-check-label" for="equal-or-less-input">

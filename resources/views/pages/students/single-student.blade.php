@@ -14,6 +14,12 @@
         }
     </style>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
+        </div>
+    @endif
+
     <div class="row mb-4 ml-1">
         <div class="card">
             <div class="card-body p-0">
