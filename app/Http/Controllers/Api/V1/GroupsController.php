@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class GroupsController extends Controller
 {
     public function __construct(
-        private GroupsRepository $groupsRepository 
+        private GroupsRepository $groupsRepository
     ) {
     }
 

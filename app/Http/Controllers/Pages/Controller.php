@@ -14,7 +14,7 @@ abstract class Controller extends BaseController
      */
     public function makeView(string $viewPath, array $data = []): View
     {
-        /** 
+        /**
          * @var View
          * @phpstan-ignore-next-line (ignore view-string type error)
          */
