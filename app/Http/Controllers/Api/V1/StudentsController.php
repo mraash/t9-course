@@ -8,6 +8,7 @@ use App\Domain\Repositories\StudentsRepository;
 use App\Exceptions\EntityNotFoundException;
 use App\Http\Requests\Api\V1\Students\StoreStudentRequest;
 use App\Http\Resources\V1\StudentResource;
+use App\Http\Responses\Api\V1\ApiSuccesResponse;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -17,16 +18,16 @@ class StudentsController extends Controller
     ) {
     }
 
-    public function index(Request $request)
+    public function index(Request $request): ApiSuccesResponse
     {
         $students = $this->studentsRepository->getAll();
 
         $resources = StudentResource::collection($students);
 
-        return $this->makeSuccessResponse($resources->toArray($request));
+        return $this->makeSuccessResponse((array)$resources->toArray($request));
     }
 
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): ApiSuccesResponse
     {
         try {
             $student = $this->studentsRepository->getById($id);
@@ -40,7 +41,7 @@ class StudentsController extends Controller
         return $this->makeSuccessResponse($resource->toArray($request));
     }
 
-    public function store(StoreStudentRequest $request)
+    public function store(StoreStudentRequest $request): ApiSuccesResponse
     {
         $firstName = $request->firstNameInput();
         $lastName = $request->lastNameInput();
@@ -50,7 +51,7 @@ class StudentsController extends Controller
         return $this->makeSuccessResponse();
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): ApiSuccesResponse
     {
         try {
             $this->studentsRepository->delete($id);

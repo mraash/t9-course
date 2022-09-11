@@ -7,6 +7,11 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 
+/**
+ * @property-read int $id
+ * @property-read string $first_name
+ * @property-read string $last_name
+ */
 class StudentResource extends JsonResource
 {
     /**

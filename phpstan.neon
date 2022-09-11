@@ -9,3 +9,9 @@ parameters:
         - ./app/**/Exxample*.php
         - ./database/**/Exxample*.php
         - ./tests/**/Exxample*.php
+    ignoreErrors:
+        - '#Cannot cast mixed to int#'
+        - '#Cannot cast mixed to float#'
+        - '#Cannot cast mixed to string#'
+        - '#Cannot cast mixed to bool#'
+    reportUnmatchedIgnoredErrors: false
