@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Domain\Repositories\StudentsRepository;
-use App\Exceptions\UndefinedEntityException;
+use App\Exceptions\EntityNotFoundException;
 use App\Http\Requests\Api\V1\Students\StoreStudentRequest;
 use App\Http\Resources\V1\StudentResource;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class StudentsController extends Controller
         try {
             $student = $this->studentsRepository->getById($id);
         }
-        catch (UndefinedEntityException) {
+        catch (EntityNotFoundException) {
             $this->throwResponseException('Not found', 404);
         }
 
@@ -55,7 +55,7 @@ class StudentsController extends Controller
         try {
             $this->studentsRepository->delete($id);
         }
-        catch (UndefinedEntityException) {
+        catch (EntityNotFoundException) {
             $this->throwResponseException('Not found', 404);
         }
 

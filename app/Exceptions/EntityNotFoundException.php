@@ -6,6 +6,6 @@ namespace App\Exceptions;
 
 use Exception;
 
-class UndefinedEntityException extends Exception
+class EntityNotFoundException extends Exception
 {
 }

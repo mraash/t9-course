@@ -6,7 +6,7 @@ namespace App\Domain\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Domain\Models\Student;
-use App\Exceptions\UndefinedEntityException;
+use App\Exceptions\EntityNotFoundException;
 use Illuminate\Database\Eloquent\Collection;
 
 class StudentsRepository extends Repository
@@ -56,7 +56,7 @@ class StudentsRepository extends Repository
         ;
 
         if ($student === null) {
-            throw new UndefinedEntityException();
+            throw new EntityNotFoundException();
         }
 
         return $student;
