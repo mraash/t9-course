@@ -7,8 +7,7 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Domain\Repositories\CoursesRepository;
-use App\Domain\Services\CoursesService;
-use App\Domain\Services\StudentsService;
+use App\Domain\Repositories\StudentsRepository;
 use App\Exceptions\EntityNotFoundException;
 use App\Http\Requests\Pages\Students\AddCourseRequest;
 use App\Http\Requests\Pages\Students\DeleteStudentRequest;
@@ -19,18 +18,18 @@ use App\Http\Requests\Pages\Students\RemoveCourseRequest;
 class StudentsController extends Controller
 {
     public function __construct(
-        private StudentsService $studentsService
+        private StudentsRepository $studentsRepository
     ) {
     }
 
-    public function showIndex(ShowIndexStudentsRequest $request, CoursesService $coursesService): View
+    public function showIndex(ShowIndexStudentsRequest $request, CoursesRepository $coursesRepository): View
     {
         $selectedCourseId = $request->getCourseIdInputOrNull();
 
-        $courses = $coursesService->getAll();
+        $courses = $coursesRepository->getAll();
         $students = $selectedCourseId === null
-            ? $this->studentsService->getAllPaginated(20)
-            : $this->studentsService->getPaginatedFromCourse($selectedCourseId, 20)
+            ? $this->studentsRepository->getAllPaginated(20)
+            : $this->studentsRepository->getPaginatedFromCourse($selectedCourseId, 20)
         ;
 
         return $this->makeView(
@@ -44,7 +43,7 @@ class StudentsController extends Controller
         $courses = $coursesRepository->getAll();
 
         try {
-            $student = $this->studentsService->getById($id);
+            $student = $this->studentsRepository->getById($id);
         }
         catch (EntityNotFoundException $err) {
             abort(404);
@@ -63,7 +62,7 @@ class StudentsController extends Controller
         $firstName = $request->getFirstNameInput();
         $lastName = $request->getLastNameInput();
 
-        $student = $this->studentsService->create($firstName, $lastName);
+        $student = $this->studentsRepository->create($firstName, $lastName);
 
         return $this->makeRedirector()->back()->with(
             'success',
@@ -80,7 +79,7 @@ class StudentsController extends Controller
     {
         $id = $request->getIdInput();
 
-        $this->studentsService->delete($id);
+        $this->studentsRepository->delete($id);
 
         return $this->makeRedirector()->back()->with(
             'success',
@@ -93,7 +92,7 @@ class StudentsController extends Controller
         $courseId = $request->getCourseIdInput();
 
         try {
-            $this->studentsService->addCourse($id, $courseId);
+            $this->studentsRepository->addCourse($id, $courseId);
         }
         catch (EntityNotFoundException) {
             return $this->makeRedirector()->back()->withErrors([
@@ -109,7 +108,7 @@ class StudentsController extends Controller
         $courseId = $request->getCourseIdInput();
 
         try {
-            $this->studentsService->removeCourse($id, $courseId);
+            $this->studentsRepository->removeCourse($id, $courseId);
         }
         catch (EntityNotFoundException) {
             return $this->makeRedirector()->back()->withErrors([
