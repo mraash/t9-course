@@ -17,6 +17,8 @@ use App\Http\Requests\Pages\Students\RemoveCourseRequest;
 
 class StudentsController extends Controller
 {
+    private const INDEX_PAGINATION = 20;
+
     public function __construct(
         private StudentsRepository $studentsRepository
     ) {
@@ -28,8 +30,8 @@ class StudentsController extends Controller
 
         $courses = $coursesRepository->getAll();
         $students = $selectedCourseId === null
-            ? $this->studentsRepository->getAllPaginated(20)
-            : $this->studentsRepository->getPaginatedFromCourse($selectedCourseId, 20)
+            ? $this->studentsRepository->getPaginated(self::INDEX_PAGINATION)
+            : $this->studentsRepository->getPaginatedFromCourse($selectedCourseId, self::INDEX_PAGINATION)
         ;
 
         return $this->makeView(

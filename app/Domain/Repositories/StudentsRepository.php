@@ -25,7 +25,7 @@ class StudentsRepository extends Repository
         return $this->model()->all();
     }
 
-    public function getAllPaginated(int $prePage): LengthAwarePaginator
+    public function getPaginated(int $prePage): LengthAwarePaginator
     {
         return $this->query()
             ->orderBy('id')
