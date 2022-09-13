@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Domain\Models\Group;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use App\Domain\Models\Group;
 
 class GroupsRepository extends Repository
 {
@@ -35,9 +35,6 @@ class GroupsRepository extends Repository
         ;
     }
 
-    /**
-     * @return Collection<int,Group>
-     */
     public function getPaginatedWithLessOrEqualStudents(int $perPage, int $maxStudents): LengthAwarePaginator
     {
         $result = $this->query()

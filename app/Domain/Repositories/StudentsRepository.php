@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use App\Domain\Models\Student;
-use App\Exceptions\EntityNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use App\Domain\Models\Student;
+use App\Exceptions\EntityNotFoundException;
 
 class StudentsRepository extends Repository
 {

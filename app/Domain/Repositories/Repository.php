@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Repository
