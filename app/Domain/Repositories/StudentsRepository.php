@@ -7,6 +7,7 @@ namespace App\Domain\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Domain\Models\Student;
 use App\Exceptions\EntityNotFoundException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class StudentsRepository extends Repository
@@ -21,13 +22,12 @@ class StudentsRepository extends Repository
      */
     public function getAll(): Collection
     {
-        return $this->student()->all();
+        return $this->model()->all();
     }
 
     public function getAllPaginated(int $prePage): LengthAwarePaginator
     {
-        return $this->student()
-            ->query()
+        return $this->query()
             ->orderBy('id')
             ->paginate($prePage)
         ;
@@ -35,8 +35,7 @@ class StudentsRepository extends Repository
 
     public function getPaginatedFromCourse(int $courseId, int $prePage): LengthAwarePaginator
     {
-        return $this->student()
-            ->query()
+        return $this->query()
             ->select(['students.*'])
             ->leftJoin('course_student', 'course_student.student_id', '=', 'students.id')
             ->where('course_student.course_id', $courseId)
@@ -48,7 +47,7 @@ class StudentsRepository extends Repository
 
     public function getById(int $id): Student
     {
-        $student = $this->student()
+        $student = $this->model()
             ->query()
             ->where('id', $id)
             ->with(['courses'])
@@ -64,7 +63,7 @@ class StudentsRepository extends Repository
 
     public function create(string $firstName, string $lastName): Student
     {
-        $student = $this->student();
+        $student = $this->model();
 
         $student->first_name = $firstName;
         $student->last_name = $lastName;
@@ -95,7 +94,16 @@ class StudentsRepository extends Repository
         ;
     }
 
-    protected function student(): Student
+    /**
+     * @return Builder<Student>
+     */
+    protected function query(): Builder
+    {
+        /** @var Builder<Student> */
+        return $this->model()->query();
+    }
+
+    protected function model(): Student
     {
         /** @var Student */
         return parent::model();

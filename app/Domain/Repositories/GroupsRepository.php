@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\Group;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class GroupsRepository extends Repository
@@ -19,8 +20,7 @@ class GroupsRepository extends Repository
      */
     public function getAll(): Collection
     {
-        return $this->group()
-            ->query()
+        return $this->query()
             ->withCount(['students'])
             ->get()
         ;
@@ -31,8 +31,7 @@ class GroupsRepository extends Repository
      */
     public function getWithLessOrEqualStudents(int $maxStudents): Collection
     {
-        $result = $this->group()
-            ->query()
+        $result = $this->query()
             ->withCount(['students'])
             ->has('students', '<=', $maxStudents)
             ->get()
@@ -41,7 +40,16 @@ class GroupsRepository extends Repository
         return $result;
     }
 
-    protected function group(): Group
+    /**
+     * @return Builder<Group>
+     */
+    protected function query(): Builder
+    {
+        /** @var Builder<Group> */
+        return $this->model()->query();
+    }
+
+    protected function model(): Group
     {
         /** @var Group */
         return parent::model();

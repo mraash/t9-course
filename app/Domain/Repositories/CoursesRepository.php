@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\Course;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class CoursesRepository extends Repository
@@ -19,13 +20,19 @@ class CoursesRepository extends Repository
      */
     public function getAll(): Collection
     {
-        return $this->course()
-            ->query()
-            ->get()
-        ;
+        return $this->query()->get();
     }
 
-    protected function course(): Course
+    /**
+     * @return Builder<Course>
+     */
+    protected function query(): Builder
+    {
+        /** @var Builder<Course> */
+        return $this->model()->query();
+    }
+
+    protected function model(): Course
     {
         /** @var Course */
         return parent::model();
