@@ -17,6 +17,9 @@
         <include>
             <directory suffix=".php">./app</directory>
         </include>
+        <exclude>
+            <directory prefix="Exxample" suffix=".php">./app</directory>
+        </exclude>
         <report>
             <html outputDirectory="./.coverage"/>
         </report>

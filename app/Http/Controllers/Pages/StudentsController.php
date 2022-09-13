@@ -100,7 +100,10 @@ class StudentsController extends Controller
             ]);
         }
 
-        return $this->makeRedirector()->back();
+        return $this->makeRedirector()->back()->with(
+            'success',
+            "Successfully added course with id $courseId"
+        );
     }
 
     public function removeCourse(RemoveCourseRequest $request, int $id): RedirectResponse
@@ -116,6 +119,9 @@ class StudentsController extends Controller
             ]);
         }
 
-        return $this->makeRedirector()->back();
+        return $this->makeRedirector()->back()->with(
+            'success',
+            "Successfully removed course with id $courseId"
+        );
     }
 }

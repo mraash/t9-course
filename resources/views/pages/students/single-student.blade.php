@@ -93,7 +93,7 @@
                                     <td class="normal-padding">
                                         <form
                                             action="{{ route(
-                                                'actions.students.courses.delete',
+                                                'actions.students.courses.remove',
                                                 $student->id
                                             ) }}"
                                             method="POST"
