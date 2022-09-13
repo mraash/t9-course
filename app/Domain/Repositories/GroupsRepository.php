@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\Group;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -26,15 +27,23 @@ class GroupsRepository extends Repository
         ;
     }
 
+    public function getPaginated(int $prePage): LengthAwarePaginator
+    {
+        return $this->query()
+            ->withCount(['students'])
+            ->paginate($prePage)
+        ;
+    }
+
     /**
      * @return Collection<int,Group>
      */
-    public function getWithLessOrEqualStudents(int $maxStudents): Collection
+    public function getPaginatedWithLessOrEqualStudents(int $perPage, int $maxStudents): LengthAwarePaginator
     {
         $result = $this->query()
             ->withCount(['students'])
             ->has('students', '<=', $maxStudents)
-            ->get()
+            ->paginate($perPage)
         ;
 
         return $result;

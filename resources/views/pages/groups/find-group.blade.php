@@ -52,4 +52,8 @@
             </table>
         </div>
     </div>
+
+    <div>
+        {{ $groups->appends($_GET)->links() }}
+    </div>
 @endsection
