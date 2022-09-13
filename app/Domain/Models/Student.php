@@ -37,14 +37,6 @@ class Student extends Model
         return $this->belongsToMany(Course::class);
     }
 
-    // /**
-    //  * @return Builder<Student>
-    //  */
-    // public static function query(): Builder
-    // {
-    //     return parent::query();
-    // }
-
     /** @phpstan-ignore-next-line */
     protected static function newFactory()
     {
