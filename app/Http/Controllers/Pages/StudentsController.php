@@ -35,7 +35,7 @@ class StudentsController extends Controller
         ;
 
         return $this->makeView(
-            'pages/students/archive-students',
+            'pages/students/index-students',
             compact('courses', 'students')
         );
     }
