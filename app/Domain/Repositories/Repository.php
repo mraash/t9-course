@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @phpstan-template TModel of Model
+ * @template TModel of Model
  */
 abstract class Repository
 {
+    /** @phpstan-var TModel */
     private Model $model;
 
     /**
@@ -29,10 +30,7 @@ abstract class Repository
      */
     protected function model(): Model
     {
-        /** @phpstan-var TModel */
-        $model = new (get_class($this->model));
-
-        return $model;
+        return new (get_class($this->model));
     }
 
     /**
