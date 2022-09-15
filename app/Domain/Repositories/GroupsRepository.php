@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Domain\Models\Group;
 
+/**
+ * @extends Repository<Group>
+ */
 class GroupsRepository extends Repository
 {
     public function __construct(Group $model)
@@ -44,20 +46,5 @@ class GroupsRepository extends Repository
         ;
 
         return $result;
-    }
-
-    /**
-     * @return Builder<Group>
-     */
-    protected function query(): Builder
-    {
-        /** @var Builder<Group> */
-        return $this->model()->query();
-    }
-
-    protected function model(): Group
-    {
-        /** @var Group */
-        return parent::model();
     }
 }

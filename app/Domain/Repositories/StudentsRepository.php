@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Domain\Models\Student;
 use App\Exceptions\EntityNotFoundException;
 
+/**
+ * @extends Repository<Student>
+ */
 class StudentsRepository extends Repository
 {
     public function __construct(Student $model)
@@ -92,20 +94,5 @@ class StudentsRepository extends Repository
             ->courses()
             ->detach($courseId)
         ;
-    }
-
-    /**
-     * @return Builder<Student>
-     */
-    protected function query(): Builder
-    {
-        /** @var Builder<Student> */
-        return $this->model()->query();
-    }
-
-    protected function model(): Student
-    {
-        /** @var Student */
-        return parent::model();
     }
 }
