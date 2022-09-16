@@ -26,6 +26,8 @@ class GroupsController extends Controller
             : $this->groupsRepository->getPaginatedWithLessOrEqualStudents(self::INDEX_PAGINATION, $maxStudents)
         ;
 
+        $groups->appends($_GET);
+
         return $this->makeView('pages/groups/index', compact('groups'));
     }
 }

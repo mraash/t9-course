@@ -34,6 +34,8 @@ class StudentsController extends Controller
             : $this->studentsRepository->getPaginatedFromCourse($selectedCourseId, self::INDEX_PAGINATION)
         ;
 
+        $students->appends($_GET);
+
         return $this->makeView('pages/students/index',compact('courses', 'students'));
     }
 

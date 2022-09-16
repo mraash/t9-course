@@ -35,7 +35,7 @@
     </form>
 
     <div class="mt-4">
-        {{ $students->appends($_GET)->links() }}
+        {{ $students->links() }}
     </div>
 
     <div class="card mt-3">
@@ -71,6 +71,6 @@
     </div>
 
     <div>
-        {{ $students->appends($_GET)->links() }}
+        {{ $students->links() }}
     </div>
 @endsection

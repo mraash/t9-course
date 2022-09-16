@@ -54,6 +54,6 @@
     </div>
 
     <div>
-        {{ $groups->appends($_GET)->links() }}
+        {{ $groups->links() }}
     </div>
 @endsection
