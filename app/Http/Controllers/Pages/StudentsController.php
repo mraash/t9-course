@@ -34,10 +34,7 @@ class StudentsController extends Controller
             : $this->studentsRepository->getPaginatedFromCourse($selectedCourseId, self::INDEX_PAGINATION)
         ;
 
-        return $this->makeView(
-            'pages/students/index-students',
-            compact('courses', 'students')
-        );
+        return $this->makeView('pages/students/index',compact('courses', 'students'));
     }
 
     public function showSingle(CoursesRepository $coursesRepository, int $id): View
@@ -51,12 +48,12 @@ class StudentsController extends Controller
             abort(404);
         }
 
-        return $this->makeView('pages/students/single-student', compact('student', 'courses'));
+        return $this->makeView('pages/students/single', compact('student', 'courses'));
     }
 
     public function showCreateForm(): View
     {
-        return $this->makeView('pages/students/add-student');
+        return $this->makeView('pages/students/add');
     }
 
     public function create(CreateStudentRequest $request): RedirectResponse
@@ -74,7 +71,7 @@ class StudentsController extends Controller
 
     public function showDeleteForm(): View
     {
-        return $this->makeView('pages/students/delete-student');
+        return $this->makeView('pages/students/delete');
     }
 
     public function delete(DeleteStudentRequest $request): RedirectResponse
